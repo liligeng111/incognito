@@ -1,0 +1,26 @@
+<html>
+<script src='jquery-1.6.4.js'></script>
+<script>
+var page_data = 'about:blank';
+
+chrome.extension.onConnect.addListener(function(port)
+{
+	if(port.name == "open_incognito_page")
+	{
+		port.onMessage.addListener(function(msg)
+		{
+			page_data = msg.data;
+			chrome.tabs.create({url: msg.url}, function(tab) 
+			{
+				chrome.tabs.executeScript(tab.id, {file:'load_page.js'}, function(){port.postMessage({what:'success'});});
+			});
+		});
+	}
+	else if (port.name == "load_page")
+	{
+		port.postMessage({data:page_data});
+	}
+});
+
+</script>
+</html>

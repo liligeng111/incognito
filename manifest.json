@@ -1,0 +1,8 @@
+{
+  "name": "人人网隐身查看器",
+  "version": "0.1.0",
+  "description": "隐身查看",
+  "background_page": "background.html",
+  "permissions": ["cookies","tabs","http://www.renren.com/*"],
+  "content_scripts": [{ "js": ["jquery-1.6.4.js","incognito.js"], "matches": ["http://www.renren.com/*"]}]
+}
